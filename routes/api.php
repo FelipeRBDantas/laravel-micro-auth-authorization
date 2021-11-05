@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\Api\{
+    PermissionUserController,
     ResourceController,
     UserController
 };
-use App\Http\Controllers\Api\Auth\AuthController;
-use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Auth\{
+    AuthController,
+    RegisterController
+};
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -21,6 +24,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users/permissions', [PermissionUserController::class, 'permissionsUser']);
+
     Route::get('/resources', [ResourceController::class, 'index']);
 
     Route::apiResource('/users', UserController::class);
