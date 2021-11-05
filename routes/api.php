@@ -24,7 +24,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/users/permissions', [PermissionUserController::class, 'permissionsUser']);
+    Route::post('/users/permissions', [PermissionUserController::class, 'addPermissionUser']);
+
+    Route::get('/users/{identify}/permissions', [PermissionUserController::class, 'permissionsUser']);
 
     Route::get('/resources', [ResourceController::class, 'index']);
 
